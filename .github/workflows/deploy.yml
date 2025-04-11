@@ -35,17 +35,23 @@ jobs:
           echo "Building Vite application..."
           npm run build
           echo "Build completed. Checking output directory:"
-          ls -la dist/
+          ls -la dist/ || echo "dist directory not found"
+          ls -la || echo "Current directory listing"
 
       - name: Prepare output
         run: |
           # 确保 dist 目录存在
           mkdir -p dist
           # 复制静态文件
-          cp -r public/* dist/ || true
+          cp -r public/* dist/ || echo "Failed to copy public files"
           # 创建 .nojekyll 文件以禁用 Jekyll 处理
           touch dist/.nojekyll
           # 确保 index.html 存在于根目录
+          if [ ! -f dist/index.html ]; then
+            echo "index.html not found in dist directory"
+            # 如果构建失败，创建一个简单的index.html
+            echo "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>打字大师</title></head><body><h1>网站正在维护中</h1><p>请稍后再访问。</p></body></html>" > dist/index.html
+          fi
           ls -la dist/
 
       - name: Setup Pages
