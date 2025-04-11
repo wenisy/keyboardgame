@@ -102,6 +102,33 @@
   color: #333;
 }
 
+.text-display {
+  font-family: monospace;
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: var(--border-radius);
+  min-height: 100px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.current-character {
+  background-color: #ffeb3b;
+  border-bottom: 2px solid #f57f17;
+}
+
+.correct-character {
+  color: #4caf50;
+}
+
+.incorrect-character {
+  color: #f44336;
+  text-decoration: underline;
+}
+
 .keyboard-container {
   margin: 30px 0;
 }

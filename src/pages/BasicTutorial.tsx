@@ -79,12 +79,12 @@ const BasicTutorial: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
     setUserInput(input);
-    
+
     // 检查输入是否正确
     if (input.length > 0) {
       const lastChar = input.charAt(input.length - 1);
       const expectedChar = practiceText.charAt(input.length - 1);
-      
+
       if (lastChar === expectedChar) {
         setCurrentKey(lastChar);
         setIncorrectKey('');
@@ -96,7 +96,7 @@ const BasicTutorial: React.FC = () => {
       setCurrentKey('');
       setIncorrectKey('');
     }
-    
+
     // 如果完成当前练习文本，自动进入下一课
     if (input === practiceText && currentLesson < lessons.length) {
       setTimeout(() => {
@@ -144,7 +144,21 @@ const BasicTutorial: React.FC = () => {
 
           <div className="practice-area">
             <h3 className="practice-title">练习文本:</h3>
-            <p className="practice-text">{practiceText}</p>
+            <div className="text-display">
+              {practiceText.split('').map((char, index) => {
+                let className = '';
+                if (index < userInput.length) {
+                  className = userInput[index] === char ? 'correct-character' : 'incorrect-character';
+                } else if (index === userInput.length) {
+                  className = 'current-character';
+                }
+                return (
+                  <span key={index} className={className}>
+                    {char}
+                  </span>
+                );
+              })}
+            </div>
             <input
               type="text"
               className="input-field"
@@ -155,9 +169,9 @@ const BasicTutorial: React.FC = () => {
             />
           </div>
 
-          <Keyboard 
-            highlightedKeys={highlightedKeys} 
-            pressedKey={currentKey} 
+          <Keyboard
+            highlightedKeys={highlightedKeys}
+            pressedKey={currentKey}
             incorrectKey={incorrectKey}
             showFingers={true}
           />
@@ -165,7 +179,7 @@ const BasicTutorial: React.FC = () => {
           <div className="navigation-buttons">
             <Link to="/" className="back-button">返回主页</Link>
             {currentLesson < lessons.length ? (
-              <button 
+              <button
                 className="next-button"
                 onClick={() => setCurrentLesson(currentLesson + 1)}
               >
