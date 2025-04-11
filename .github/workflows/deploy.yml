@@ -6,13 +6,9 @@ on:
   workflow_dispatch:  # 允许手动触发
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -31,50 +27,17 @@ jobs:
         run: npm install
 
       - name: Build
-        run: |
-          echo "Building Vite application..."
-          npm run build
-          echo "Build completed. Checking output directory:"
-          ls -la dist/ || echo "dist directory not found"
-          ls -la || echo "Current directory listing"
+        run: npm run build
 
       - name: Prepare output
         run: |
-          # 确保 dist 目录存在
-          mkdir -p dist
-          # 复制静态文件
-          cp -r public/* dist/ || echo "Failed to copy public files"
           # 创建 .nojekyll 文件以禁用 Jekyll 处理
           touch dist/.nojekyll
-          # 确保 index.html 存在于根目录
-          if [ ! -f dist/index.html ]; then
-            echo "index.html not found in dist directory"
-            # 如果构建失败，使用备用的index.html文件
-            if [ -f public/index.backup.html ]; then
-              echo "Using backup index.html file"
-              cp public/index.backup.html dist/index.html
-            else
-              echo "Creating a simple index.html file"
-              echo "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>打字大师</title></head><body><h1>网站正在维护中</h1><p>请稍后再访问。</p></body></html>" > dist/index.html
-            fi
-          fi
-          ls -la dist/
+          # 复制CNAME文件
+          cp public/CNAME dist/ || true
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: './dist'
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
