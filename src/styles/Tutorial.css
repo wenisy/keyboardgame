@@ -1,0 +1,138 @@
+.tutorial-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f8ff;
+}
+
+.tutorial-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.tutorial-title {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.tutorial-subtitle {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tutorial-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.tutorial-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.tutorial-section-title {
+  font-size: 24px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 10px;
+}
+
+.tutorial-text {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.tips-container {
+  background-color: #f8f9fa;
+  border-left: 4px solid var(--primary-color);
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.tips-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.tips-list {
+  list-style-type: none;
+}
+
+.tips-list li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.tips-list li:before {
+  content: "•";
+  color: var(--primary-color);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.practice-area {
+  background-color: #f0f8ff;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.practice-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.practice-text {
+  font-family: monospace;
+  font-size: 24px;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.keyboard-container {
+  margin: 30px 0;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.back-button, .next-button {
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.back-button {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.back-button:hover {
+  background-color: #7f8c8d;
+}
+
+.next-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.next-button:hover {
+  background-color: var(--secondary-color);
+}

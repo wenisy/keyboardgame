@@ -1,0 +1,149 @@
+.practice-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f8ff;
+}
+
+.practice-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.practice-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.practice-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.typing-area {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 30px;
+  margin-bottom: 30px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-display {
+  font-family: monospace;
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: var(--border-radius);
+  min-height: 100px;
+}
+
+.current-character {
+  background-color: #ffeb3b;
+  border-bottom: 2px solid #f57f17;
+}
+
+.correct-character {
+  color: #4caf50;
+}
+
+.incorrect-character {
+  color: #f44336;
+  text-decoration: underline;
+}
+
+.input-field {
+  font-family: monospace;
+  font-size: 20px;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.keyboard-container {
+  margin-top: auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.control-button {
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.restart-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.restart-button:hover {
+  background-color: #c0392b;
+}
+
+.home-button {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.home-button:hover {
+  background-color: #7f8c8d;
+}
+
+.next-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.next-button:hover {
+  background-color: var(--secondary-color);
+}

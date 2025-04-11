@@ -1,0 +1,128 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.keyboard-row {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  min-width: 50px;
+  margin: 0 4px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  transition: all 0.1s ease;
+}
+
+.key-highlighted {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(2px);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.key-pressed {
+  background-color: #4caf50;
+  color: white;
+  transform: translateY(4px);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.key-incorrect {
+  background-color: #f44336;
+  color: white;
+}
+
+.key-special {
+  background-color: #e0e0e0;
+}
+
+.key-space {
+  width: 300px;
+}
+
+.key-shift, .key-caps, .key-tab, .key-ctrl, .key-alt {
+  min-width: 70px;
+}
+
+.key-backspace, .key-enter {
+  min-width: 90px;
+}
+
+.finger-indicator {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  bottom: -30px;
+  background-color: rgba(255, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.hand-diagram {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  position: relative;
+}
+
+.hand {
+  width: 200px;
+  height: auto;
+  position: relative;
+}
+
+.left-hand {
+  margin-right: 20px;
+}
+
+.right-hand {
+  margin-left: 20px;
+}
+
+.finger {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(255, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.finger-active {
+  background-color: rgba(76, 175, 80, 0.7);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
