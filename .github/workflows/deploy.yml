@@ -31,14 +31,24 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
+        run: |
+          echo "Building Vite application..."
+          npm run build
+          echo "Build completed. Checking output directory:"
+          ls -la dist/
 
       - name: Prepare output
         run: |
+          # 确保 dist 目录存在
+          mkdir -p dist
+          # 复制静态文件
+          cp -r public/* dist/ || true
           # 创建 .nojekyll 文件以禁用 Jekyll 处理
           touch dist/.nojekyll
-          # 复制CNAME文件
+          # 复制 CNAME 文件
           cp public/CNAME dist/ || true
+          # 确保 index.html 存在于根目录
+          ls -la dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
