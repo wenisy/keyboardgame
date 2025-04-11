@@ -11,7 +11,7 @@ const BasicTutorial: React.FC = () => {
   const [currentKey, setCurrentKey] = useState('');
   const [incorrectKey, setIncorrectKey] = useState('');
 
-  // 课程内容
+  // 课程内容 - 帮助用户学习打字技能
   const lessons = [
     {
       title: "基本指法 - 键盘布局",
