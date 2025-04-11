@@ -49,8 +49,14 @@ jobs:
           # 确保 index.html 存在于根目录
           if [ ! -f dist/index.html ]; then
             echo "index.html not found in dist directory"
-            # 如果构建失败，创建一个简单的index.html
-            echo "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>打字大师</title></head><body><h1>网站正在维护中</h1><p>请稍后再访问。</p></body></html>" > dist/index.html
+            # 如果构建失败，使用备用的index.html文件
+            if [ -f public/index.backup.html ]; then
+              echo "Using backup index.html file"
+              cp public/index.backup.html dist/index.html
+            else
+              echo "Creating a simple index.html file"
+              echo "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>打字大师</title></head><body><h1>网站正在维护中</h1><p>请稍后再访问。</p></body></html>" > dist/index.html
+            fi
           fi
           ls -la dist/
 
