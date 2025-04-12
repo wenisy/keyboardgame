@@ -92,9 +92,19 @@ const BasicTutorial: React.FC = () => {
         setIncorrectKey(lastChar);
         setCurrentKey('');
       }
+
+      // 更新高亮键，指向下一个需要输入的字符
+      const nextChar = practiceText.charAt(input.length);
+      if (nextChar) {
+        setHighlightedKeys([nextChar]);
+      } else {
+        setHighlightedKeys([]);
+      }
     } else {
       setCurrentKey('');
       setIncorrectKey('');
+      // 如果输入为空，高亮第一个字符
+      setHighlightedKeys([practiceText.charAt(0)]);
     }
 
     // 如果完成当前练习文本，自动进入下一课

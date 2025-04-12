@@ -61,18 +61,46 @@ const Keyboard: React.FC<KeyboardProps> = ({
     // 处理右侧的Shift, Alt, Ctrl
     // 注意：这里我们不使用displayKey变量，直接使用key
 
+    // 确定当前需要输入的字母（只高亮一个键）
+    const currentKey = highlightedKeys.length > 0 ? highlightedKeys[0].toLowerCase() : '';
+
     // 确定键的类名
-    const isHighlighted = highlightedKeys.includes(key.toLowerCase());
+    const isCurrentKey = key.toLowerCase() === currentKey;
     const isPressed = pressedKey.toLowerCase() === key.toLowerCase();
     const isIncorrect = incorrectKey.toLowerCase() === key.toLowerCase();
     const isSpecial = Object.keys(specialKeyClasses).includes(key);
 
-    const keyClassName = `key ${isSpecial ? specialKeyClasses[key] : ''} ${isHighlighted ? 'key-highlighted' : ''} ${isPressed ? 'key-pressed' : ''} ${isIncorrect ? 'key-incorrect' : ''}`;
+    const keyClassName = `key ${isSpecial ? specialKeyClasses[key] : ''} ${isCurrentKey ? 'key-highlighted' : ''} ${isPressed ? 'key-pressed' : ''} ${isIncorrect ? 'key-incorrect' : ''}`;
 
-    // 确定手指指示器
-    const fingerIndicator = showFingers && isHighlighted ? (
-      <div className="finger-indicator"></div>
-    ) : null;
+    // 获取当前键应该使用的手指
+    const fingerType = fingerMap[key.toLowerCase()] || '';
+
+    // 手指类型的中文名称
+    const fingerNames: Record<string, string> = {
+      'left-pinky': '左小指',
+      'left-ring': '左无名指',
+      'left-middle': '左中指',
+      'left-index': '左食指',
+      'left-thumb': '左拇指',
+      'right-pinky': '右小指',
+      'right-ring': '右无名指',
+      'right-middle': '右中指',
+      'right-index': '右食指',
+      'right-thumb': '右拇指',
+      'thumb': '拇指'
+    };
+
+    // 手指指示器
+    const fingerIndicator = showFingers && isCurrentKey && !isPressed ? (
+      <div className="finger-indicator finger-indicator-next">
+        <div className="finger-dot"></div>
+        <div className="finger-name">{fingerNames[fingerType]}</div>
+      </div>
+    ) : (showFingers && isPressed ? (
+      <div className="finger-indicator finger-indicator-active">
+        <div className="finger-dot"></div>
+      </div>
+    ) : null);
 
     return (
       <div key={`${rowIndex}-${index}`} className={keyClassName}>
@@ -95,27 +123,72 @@ const Keyboard: React.FC<KeyboardProps> = ({
   const renderHandDiagram = () => {
     if (!showFingers) return null;
 
+    // 确定当前需要输入的字母（只高亮一个键）
+    const currentKey = highlightedKeys.length > 0 ? highlightedKeys[0].toLowerCase() : '';
+
     // 确定当前活跃的手指
     let activeFinger = '';
+    let isPressed = false;
+
+    // 如果有按下的键，显示绿色的手指
     if (pressedKey) {
       activeFinger = fingerMap[pressedKey.toLowerCase()] || '';
+      isPressed = true;
     }
+    // 否则，如果有高亮的键，显示橙色闪烁的手指提示
+    else if (currentKey) {
+      activeFinger = fingerMap[currentKey] || '';
+    }
+
+    // 手指类型的中文名称
+    const fingerNames: Record<string, string> = {
+      'left-pinky': '左小指',
+      'left-ring': '左无名指',
+      'left-middle': '左中指',
+      'left-index': '左食指',
+      'left-thumb': '左拇指',
+      'right-pinky': '右小指',
+      'right-ring': '右无名指',
+      'right-middle': '右中指',
+      'right-index': '右食指',
+      'right-thumb': '右拇指',
+      'thumb': '拇指'
+    };
+
+    // 渲染单个手指
+    const renderFinger = (fingerType: string, position: React.CSSProperties) => {
+      const isActive = activeFinger === fingerType;
+      const fingerClass = isActive
+        ? (isPressed ? 'finger-active' : 'finger-next')
+        : '';
+
+      return (
+        <div
+          className={`finger finger-${fingerType.split('-')[1]} ${fingerClass}`}
+          style={position}
+        >
+          {isActive && !isPressed && (
+            <div className="finger-tooltip">{fingerNames[fingerType]}</div>
+          )}
+        </div>
+      );
+    };
 
     return (
       <div className="hand-diagram">
         <div className="left-hand hand">
-          <div className={`finger finger-pinky ${activeFinger === 'left-pinky' ? 'finger-active' : ''}`} style={{ top: '20px', left: '20px' }}></div>
-          <div className={`finger finger-ring ${activeFinger === 'left-ring' ? 'finger-active' : ''}`} style={{ top: '10px', left: '50px' }}></div>
-          <div className={`finger finger-middle ${activeFinger === 'left-middle' ? 'finger-active' : ''}`} style={{ top: '5px', left: '80px' }}></div>
-          <div className={`finger finger-index ${activeFinger === 'left-index' ? 'finger-active' : ''}`} style={{ top: '10px', left: '110px' }}></div>
-          <div className={`finger finger-thumb ${activeFinger === 'left-thumb' ? 'finger-active' : ''}`} style={{ top: '60px', left: '140px' }}></div>
+          {renderFinger('left-pinky', { top: '20px', left: '20px' })}
+          {renderFinger('left-ring', { top: '10px', left: '50px' })}
+          {renderFinger('left-middle', { top: '5px', left: '80px' })}
+          {renderFinger('left-index', { top: '10px', left: '110px' })}
+          {renderFinger('left-thumb', { top: '60px', left: '140px' })}
         </div>
         <div className="right-hand hand">
-          <div className={`finger finger-thumb ${activeFinger === 'right-thumb' ? 'finger-active' : ''}`} style={{ top: '60px', right: '140px' }}></div>
-          <div className={`finger finger-index ${activeFinger === 'right-index' ? 'finger-active' : ''}`} style={{ top: '10px', right: '110px' }}></div>
-          <div className={`finger finger-middle ${activeFinger === 'right-middle' ? 'finger-active' : ''}`} style={{ top: '5px', right: '80px' }}></div>
-          <div className={`finger finger-ring ${activeFinger === 'right-ring' ? 'finger-active' : ''}`} style={{ top: '10px', right: '50px' }}></div>
-          <div className={`finger finger-pinky ${activeFinger === 'right-pinky' ? 'finger-active' : ''}`} style={{ top: '20px', right: '20px' }}></div>
+          {renderFinger('right-thumb', { top: '60px', right: '140px' })}
+          {renderFinger('right-index', { top: '10px', right: '110px' })}
+          {renderFinger('right-middle', { top: '5px', right: '80px' })}
+          {renderFinger('right-ring', { top: '10px', right: '50px' })}
+          {renderFinger('right-pinky', { top: '20px', right: '20px' })}
         </div>
       </div>
     );

@@ -58,9 +58,9 @@ const Practice: React.FC = () => {
     setIncorrectKey('');
     setCompleted(false);
 
-    // 设置高亮键（当前文本的前几个字符）
-    const firstFewChars = newText.substring(0, 5).toLowerCase().split('');
-    setHighlightedKeys([...new Set(firstFewChars)]);
+    // 设置高亮键（只高亮第一个字符）
+    const firstChar = newText.charAt(0).toLowerCase();
+    setHighlightedKeys([firstChar]);
 
     // 聚焦输入框
     if (inputRef.current) {
@@ -97,7 +97,15 @@ const Practice: React.FC = () => {
       if (input.length < currentText.length) {
         const nextChar = currentText.charAt(input.length).toLowerCase();
         setHighlightedKeys([nextChar]);
+      } else {
+        setHighlightedKeys([]);
       }
+    } else {
+      // 如果输入为空，高亮第一个字符
+      setCurrentKey('');
+      setIncorrectKey('');
+      const firstChar = currentText.charAt(0).toLowerCase();
+      setHighlightedKeys([firstChar]);
     }
 
     // 计算准确率

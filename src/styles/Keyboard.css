@@ -37,6 +37,22 @@
   color: white;
   transform: translateY(2px);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.key-highlighted::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: rgba(255, 140, 0, 0.8); /* 橙色 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-orange 1.5s infinite;
+  box-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
+  z-index: 5;
 }
 
 .key-pressed {
@@ -103,8 +119,11 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: rgba(200, 200, 200, 0.5);
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .finger-active {
@@ -125,4 +144,80 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.finger-next {
+  background-color: rgba(255, 140, 0, 0.8); /* 橙色 */
+  animation: pulse-orange 1.5s infinite;
+  box-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
+}
+
+@keyframes pulse-orange {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.8);
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.9;
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.8);
+  }
+}
+
+.finger-tooltip {
+  position: absolute;
+  top: -30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 20;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.finger-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: rgba(255, 140, 0, 0.8);
+  animation: pulse-orange 1.5s infinite;
+}
+
+.finger-indicator-next {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.finger-indicator-active {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.finger-name {
+  position: absolute;
+  top: -25px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
 }
