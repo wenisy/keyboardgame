@@ -67,6 +67,8 @@ const Practice: React.FC = () => {
 
   // 新增状态
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundType, setSoundType] = useState<'keypress1' | 'keypress2' | 'keypress3'>('keypress3'); // 默认使用key3音效
+  const [showSoundSelector, setShowSoundSelector] = useState(false);
   const [showCustomTextInput, setShowCustomTextInput] = useState(false);
   const [showLevelSelector, setShowLevelSelector] = useState(false);
   const [customTexts, setCustomTexts] = useState<string[]>([]);
@@ -137,35 +139,17 @@ const Practice: React.FC = () => {
         setIncorrectKey('');
         // 播放按键声音（正确按键）
         if (soundEnabled) {
-          // 随机选择一种打字机声音
-          const randomNum = Math.random();
-          let soundId;
-          if (randomNum < 0.33) {
-            soundId = 'keypress1';
-          } else if (randomNum < 0.66) {
-            soundId = 'keypress2';
-          } else {
-            soundId = 'keypress3';
-          }
-          audioService.playSound(soundId);
+          // 使用用户选择的声音
+          audioService.playSound(soundType);
         }
       } else {
         setIncorrectKey(lastChar);
         setCurrentKey('');
         setErrors(errors + 1);
-        // 错误按键也可以播放声音，或者播放不同的声音
+        // 错误按键也播放声音
         if (soundEnabled) {
-          // 随机选择一种打字机声音
-          const randomNum = Math.random();
-          let soundId;
-          if (randomNum < 0.33) {
-            soundId = 'keypress1';
-          } else if (randomNum < 0.66) {
-            soundId = 'keypress2';
-          } else {
-            soundId = 'keypress3';
-          }
-          audioService.playSound(soundId);
+          // 使用用户选择的声音
+          audioService.playSound(soundType);
         }
       }
 
@@ -226,6 +210,17 @@ const Practice: React.FC = () => {
     const newState = !soundEnabled;
     setSoundEnabled(newState);
     audioService.setEnabled(newState);
+  };
+
+  // 打开声音选择器
+  const toggleSoundSelector = () => {
+    setShowSoundSelector(!showSoundSelector);
+  };
+
+  // 选择声音类型
+  const selectSoundType = (type: 'keypress1' | 'keypress2' | 'keypress3') => {
+    setSoundType(type);
+    setShowSoundSelector(false);
   };
 
   // 打开自定义文本输入框
@@ -328,6 +323,37 @@ const Practice: React.FC = () => {
           >
             {soundEnabled ? "🔊" : "🔇"}
           </button>
+          <div className="sound-selector-container">
+            <button
+              onClick={toggleSoundSelector}
+              className="option-button"
+              title="选择声音类型"
+            >
+              🎵
+            </button>
+            {showSoundSelector && (
+              <div className="sound-selector-dropdown">
+                <button
+                  onClick={() => selectSoundType('keypress1')}
+                  className={`sound-option ${soundType === 'keypress1' ? 'selected' : ''}`}
+                >
+                  声音 1
+                </button>
+                <button
+                  onClick={() => selectSoundType('keypress2')}
+                  className={`sound-option ${soundType === 'keypress2' ? 'selected' : ''}`}
+                >
+                  声音 2
+                </button>
+                <button
+                  onClick={() => selectSoundType('keypress3')}
+                  className={`sound-option ${soundType === 'keypress3' ? 'selected' : ''}`}
+                >
+                  声音 3
+                </button>
+              </div>
+            )}
+          </div>
           <button
             onClick={toggleLanguage}
             className="option-button"

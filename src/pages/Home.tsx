@@ -52,7 +52,7 @@ const Home: React.FC<HomeProps> = ({ username }) => {
       </main>
 
       <footer className="home-footer">
-        <p>© 2023 打字大师 | 由 Bin Xiong 开发</p>
+        <p>© 2025 打字大师 | 由 Paul.X 开发</p>
       </footer>
     </div>
   );
