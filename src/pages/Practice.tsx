@@ -14,6 +14,7 @@ const Practice: React.FC = () => {
   useEffect(() => {
     // 加载打字机声音
     audioService.loadSound('keypress', '/sounds/typewriter-key.mp3');
+    audioService.loadSound('keypress2', '/sounds/typewriter-key2.mp3');
 
     // 默认启用声音
     audioService.setEnabled(true);
@@ -134,7 +135,9 @@ const Practice: React.FC = () => {
         setIncorrectKey('');
         // 播放按键声音（正确按键）
         if (soundEnabled) {
-          audioService.playSound('keypress');
+          // 随机选择一种打字机声音
+          const soundId = Math.random() > 0.5 ? 'keypress' : 'keypress2';
+          audioService.playSound(soundId);
         }
       } else {
         setIncorrectKey(lastChar);
@@ -142,7 +145,9 @@ const Practice: React.FC = () => {
         setErrors(errors + 1);
         // 错误按键也可以播放声音，或者播放不同的声音
         if (soundEnabled) {
-          audioService.playSound('keypress');
+          // 随机选择一种打字机声音
+          const soundId = Math.random() > 0.5 ? 'keypress' : 'keypress2';
+          audioService.playSound(soundId);
         }
       }
 
