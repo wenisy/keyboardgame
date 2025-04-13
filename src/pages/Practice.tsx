@@ -13,8 +13,9 @@ const Practice: React.FC = () => {
   // 初始化音频服务
   useEffect(() => {
     // 加载打字机声音
-    audioService.loadSound('keypress', '/sounds/typewriter-key.mp3');
+    audioService.loadSound('keypress1', '/sounds/typewriter-key1.mp3');
     audioService.loadSound('keypress2', '/sounds/typewriter-key2.mp3');
+    audioService.loadSound('keypress3', '/sounds/typewriter-key3.mp3');
 
     // 默认启用声音
     audioService.setEnabled(true);
@@ -136,7 +137,15 @@ const Practice: React.FC = () => {
         // 播放按键声音（正确按键）
         if (soundEnabled) {
           // 随机选择一种打字机声音
-          const soundId = Math.random() > 0.5 ? 'keypress' : 'keypress2';
+          const randomNum = Math.random();
+          let soundId;
+          if (randomNum < 0.33) {
+            soundId = 'keypress1';
+          } else if (randomNum < 0.66) {
+            soundId = 'keypress2';
+          } else {
+            soundId = 'keypress3';
+          }
           audioService.playSound(soundId);
         }
       } else {
@@ -146,7 +155,15 @@ const Practice: React.FC = () => {
         // 错误按键也可以播放声音，或者播放不同的声音
         if (soundEnabled) {
           // 随机选择一种打字机声音
-          const soundId = Math.random() > 0.5 ? 'keypress' : 'keypress2';
+          const randomNum = Math.random();
+          let soundId;
+          if (randomNum < 0.33) {
+            soundId = 'keypress1';
+          } else if (randomNum < 0.66) {
+            soundId = 'keypress2';
+          } else {
+            soundId = 'keypress3';
+          }
           audioService.playSound(soundId);
         }
       }
