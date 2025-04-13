@@ -8,13 +8,49 @@
 .practice-header {
   background-color: var(--primary-color);
   color: white;
-  padding: 15px 0;
+  padding: 15px 20px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .practice-title {
   font-size: 24px;
-  margin-bottom: 5px;
+  margin-bottom: 0;
+}
+
+.practice-options {
+  display: flex;
+  gap: 10px;
+}
+
+.option-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  transition: all 0.2s;
+}
+
+.option-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.option-enabled {
+  background-color: rgba(76, 175, 80, 0.3);
+}
+
+.option-disabled {
+  background-color: rgba(244, 67, 54, 0.3);
 }
 
 .practice-content {
@@ -147,3 +183,20 @@
 .next-button:hover {
   background-color: var(--secondary-color);
 }
+
+/* 完成消息样式 */
+.completion-message {
+  text-align: center;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #e8f5e9;
+  border-radius: var(--border-radius);
+  border-left: 5px solid #4caf50;
+}
+
+.completion-message h3 {
+  color: #2e7d32;
+  margin-top: 0;
+}
+
+/* 自定义文本和关卡选择器的模态框样式已在各自的CSS文件中定义 */

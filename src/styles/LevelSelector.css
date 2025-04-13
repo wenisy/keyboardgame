@@ -1,0 +1,78 @@
+.level-selector-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.level-selector-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.level-selector-content h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.level-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.level-button {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.level-button:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.level-button.current-level {
+  background-color: #4caf50;
+  color: white;
+}
+
+.close-button {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #2196f3;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #0b7dda;
+}
