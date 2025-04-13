@@ -9,10 +9,14 @@
   background-color: var(--primary-color);
   color: white;
   padding: 15px 20px;
-  text-align: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.practice-header-content {
+  text-align: center;
+  flex-grow: 1;
 }
 
 .practice-title {

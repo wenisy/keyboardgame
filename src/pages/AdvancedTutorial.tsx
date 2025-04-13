@@ -1,15 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Keyboard from '../components/Keyboard';
+import NavBar from '../components/NavBar';
+import AudioService from '../services/AudioService';
 import '../styles/Tutorial.css';
 
 const AdvancedTutorial: React.FC = () => {
+  // 音频服务实例
+  const audioService = AudioService.getInstance();
+
   const [currentLesson, setCurrentLesson] = useState(1);
   const [practiceText, setPracticeText] = useState('');
   const [highlightedKeys, setHighlightedKeys] = useState<string[]>([]);
   const [userInput, setUserInput] = useState('');
   const [currentKey, setCurrentKey] = useState('');
   const [incorrectKey, setIncorrectKey] = useState('');
+  const [soundEnabled, setSoundEnabled] = useState(true);
+
+  // 初始化音频服务
+  useEffect(() => {
+    // 加载打字机声音
+    audioService.loadSound('keypress1', '/sounds/typewriter-key1.mp3');
+    audioService.loadSound('keypress2', '/sounds/typewriter-key2.mp3');
+    audioService.loadSound('keypress3', '/sounds/typewriter-key3.mp3');
+
+    // 默认启用声音
+    audioService.setEnabled(true);
+
+    return () => {
+      // 组件卸载时禁用声音
+      audioService.setEnabled(false);
+    };
+  }, []);
 
   // 课程内容
   const lessons = [
@@ -75,6 +97,13 @@ const AdvancedTutorial: React.FC = () => {
     }
   ];
 
+  // 切换声音开关
+  const toggleSound = () => {
+    const newState = !soundEnabled;
+    setSoundEnabled(newState);
+    audioService.setEnabled(newState);
+  };
+
   // 处理用户输入
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -88,9 +117,37 @@ const AdvancedTutorial: React.FC = () => {
       if (lastChar === expectedChar) {
         setCurrentKey(lastChar);
         setIncorrectKey('');
+        // 播放按键声音（正确按键）
+        if (soundEnabled) {
+          // 随机选择一种打字机声音
+          const randomNum = Math.random();
+          let soundId;
+          if (randomNum < 0.33) {
+            soundId = 'keypress1';
+          } else if (randomNum < 0.66) {
+            soundId = 'keypress2';
+          } else {
+            soundId = 'keypress3';
+          }
+          audioService.playSound(soundId);
+        }
       } else {
         setIncorrectKey(lastChar);
         setCurrentKey('');
+        // 错误按键也可以播放声音
+        if (soundEnabled) {
+          // 随机选择一种打字机声音
+          const randomNum = Math.random();
+          let soundId;
+          if (randomNum < 0.33) {
+            soundId = 'keypress1';
+          } else if (randomNum < 0.66) {
+            soundId = 'keypress2';
+          } else {
+            soundId = 'keypress3';
+          }
+          audioService.playSound(soundId);
+        }
       }
 
       // 更新高亮键，指向下一个需要输入的字符
@@ -133,9 +190,21 @@ const AdvancedTutorial: React.FC = () => {
 
   return (
     <div className="tutorial-container">
+      <NavBar />
       <header className="tutorial-header">
-        <h1 className="tutorial-title">进阶教程</h1>
-        <p className="tutorial-subtitle">第 {currentLesson} 课 - {lesson.title}</p>
+        <div className="tutorial-header-content">
+          <h1 className="tutorial-title">进阶教程</h1>
+          <p className="tutorial-subtitle">第 {currentLesson} 课 - {lesson.title}</p>
+        </div>
+        <div className="tutorial-options">
+          <button
+            onClick={toggleSound}
+            className={`option-button ${soundEnabled ? 'option-enabled' : 'option-disabled'}`}
+            title={soundEnabled ? "关闭声音" : "开启声音"}
+          >
+            {soundEnabled ? "🔊" : "🔇"}
+          </button>
+        </div>
       </header>
 
       <main className="tutorial-content">

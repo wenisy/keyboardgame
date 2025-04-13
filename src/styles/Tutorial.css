@@ -8,8 +8,48 @@
 .tutorial-header {
   background-color: var(--primary-color);
   color: white;
-  padding: 20px 0;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tutorial-header-content {
   text-align: center;
+  flex-grow: 1;
+}
+
+.tutorial-options {
+  display: flex;
+  gap: 10px;
+}
+
+.option-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  transition: all 0.2s;
+}
+
+.option-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.option-enabled {
+  background-color: rgba(76, 175, 80, 0.3);
+}
+
+.option-disabled {
+  background-color: rgba(244, 67, 54, 0.3);
 }
 
 .tutorial-title {

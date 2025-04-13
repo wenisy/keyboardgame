@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NavBar from '../components/NavBar';
 import '../styles/Login.css';
 
 interface LoginProps {
@@ -19,11 +20,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="login-container">
+      <NavBar showHomeButton={false} />
       <div className="login-card">
         <div className="login-header">
-          <img 
-            src="/keyboard-logo.png" 
-            alt="Typing Master Logo" 
+          <img
+            src="/keyboard-logo.png"
+            alt="Typing Master Logo"
             className="login-logo"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
@@ -32,8 +34,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           />
           <h1 className="login-title">Typing Master</h1>
           <p className="login-subtitle">
-            {isCreatingAccount 
-              ? "创建新账号开始你的打字之旅" 
+            {isCreatingAccount
+              ? "创建新账号开始你的打字之旅"
               : "提高你的打字技能，成为键盘大师"}
           </p>
         </div>
@@ -66,8 +68,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           {isCreatingAccount ? (
             <>
               <button type="submit" className="login-btn">创建账号</button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="create-account-btn"
                 onClick={() => setIsCreatingAccount(false)}
               >
@@ -77,8 +79,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           ) : (
             <>
               <button type="submit" className="login-btn">登录</button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="create-account-btn"
                 onClick={() => setIsCreatingAccount(true)}
               >
@@ -86,7 +88,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               </button>
             </>
           )}
-          
+
           <p className="support-text">支持我们的项目</p>
         </form>
       </div>

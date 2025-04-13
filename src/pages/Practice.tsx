@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Keyboard from '../components/Keyboard';
 import CustomTextInput from '../components/CustomTextInput';
 import LevelSelector from '../components/LevelSelector';
+import NavBar from '../components/NavBar';
 import AudioService from '../services/AudioService';
 import '../styles/Practice.css';
 
@@ -312,10 +313,13 @@ const Practice: React.FC = () => {
 
   return (
     <div className="practice-container">
+      <NavBar />
       <header className="practice-header">
-        <h1 className="practice-title">
-          打字练习 {isCustomText ? '- 自定义文本' : `- 级别 ${level}`}
-        </h1>
+        <div className="practice-header-content">
+          <h1 className="practice-title">
+            打字练习 {isCustomText ? '- 自定义文本' : `- 级别 ${level}`}
+          </h1>
+        </div>
         <div className="practice-options">
           <button
             onClick={toggleSound}

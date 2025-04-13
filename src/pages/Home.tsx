@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 import '../styles/Home.css';
 
 interface HomeProps {
@@ -9,6 +10,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ username }) => {
   return (
     <div className="home-container">
+      <NavBar showHomeButton={false} />
       <header className="home-header">
         <h1 className="home-title">打字大师</h1>
         <p className="home-welcome">欢迎回来, {username}!</p>
